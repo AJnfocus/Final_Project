@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<RunSettings>
+	<RunConfiguration>
+		<EnvironmentVariables>
+			<!--List of secret env vars and their values-->
+			<username>test@mail.com</username>
+			<password>HelloPassword123;</password>
+			<BROWSER>chrome</BROWSER>
+		</EnvironmentVariables>
+	</RunConfiguration>
+</RunSettings>
