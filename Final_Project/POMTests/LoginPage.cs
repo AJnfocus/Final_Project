@@ -11,7 +11,7 @@ namespace Final_Project.POMTests {
     internal class LoginPage : TestBaseClass {
         [Test]
         public void Login() {
-            driver.Url = baseURL + "/my-account/";
+            driver.Url = baseURL + "/my-account/"; //Navigating to the login page 
 
             LoginPagePOM login = new LoginPagePOM(driver);
             bool didWeLogin = login.LoginWithValidCredentials(@"test@mail.com", @"HelloPassword123;");
