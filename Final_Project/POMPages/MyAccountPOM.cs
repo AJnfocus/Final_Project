@@ -14,8 +14,14 @@ namespace Final_Project.POMPages {
 
         public IWebElement shopNavButton => driver.FindElement(By.LinkText("Shop"));
 
+        public IWebElement logoutButton => driver.FindElement(By.LinkText("Logout"));
+
         public void shopButton() {
             shopNavButton.Click();
+        }
+
+        public void logout() {
+            logoutButton.Click();
         }
     }
 }

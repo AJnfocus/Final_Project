@@ -30,9 +30,13 @@ namespace Final_Project.POMTests {
 
             CartPagePOM checkout = new CartPagePOM(driver);
             checkout.applyCoupon("edgewords");
-            Thread.Sleep(5000);
+            Thread.Sleep(2000);
             checkout.CouponCheck();
-            Thread.Sleep(5000);
+            Thread.Sleep(2000);
+            //Thread.Sleep(5000);
+            checkout.checkTotalCost();
+            button.logout();
+            Thread.Sleep(2000);
         }
     }
 }

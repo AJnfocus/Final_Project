@@ -18,8 +18,6 @@ namespace Final_Project.Utility {
             WebDriverWait myWait = new WebDriverWait(driver, TimeSpan.FromSeconds(waitInSec));
             myWait.Until(drive => drive.FindElement(locator).Displayed);
         }
-
     }
-
 }
 
