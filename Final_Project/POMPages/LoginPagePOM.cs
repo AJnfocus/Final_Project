@@ -7,33 +7,34 @@ using System.Threading.Tasks;
 
 namespace Final_Project.POMPages {
     internal class LoginPagePOM {
-        private IWebDriver driver;
-        public LoginPagePOM(IWebDriver driver) { 
-            this.driver = driver;
-        }
-        public IWebElement loginField => driver.FindElement(By.Id("username"));
-        public IWebElement passwordField => driver.FindElement(By.Id("password"));
-        public IWebElement submitButton => driver.FindElement(By.Name("login"));
 
-        public LoginPagePOM setUsername(string username) {
+        private IWebDriver driver;
+        
+        public LoginPagePOM(IWebDriver driver) { 
+            this.driver = driver; // Constructor 
+        }
+        public IWebElement loginField => driver.FindElement(By.Id("username")); //Finds the login   
+        public IWebElement passwordField => driver.FindElement(By.Id("password"));//Finds the password
+        public IWebElement submitButton => driver.FindElement(By.Name("login"));// Finds the sumbit button
+
+        public LoginPagePOM setUsername(string username) {//Method to set the username 
             loginField.Clear();
             loginField.SendKeys(username);
             return this;
         }
 
-        public LoginPagePOM setPassword(string password) {
+        public LoginPagePOM setPassword(string password) { //Method to set the password 
             passwordField.Clear();
             passwordField.SendKeys(password);
-            //passwordField.SendKeys(password + Keys.Enter);
             return this;
         }
 
-        public void goSubmit() {
+        public void goSubmit() { //Method hit the sumbit
             submitButton.Click();
         }
 
         //Helper method
-        public Boolean LoginWithValidCredentials(string username, string password) {
+        public Boolean LoginWithValidCredentials(string username, string password) { //Calls both of method above and have try and catch
             setUsername(username);
             setPassword(password);
             goSubmit();

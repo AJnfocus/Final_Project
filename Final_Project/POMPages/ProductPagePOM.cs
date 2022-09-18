@@ -11,16 +11,16 @@ namespace Final_Project.POMPages {
         private IWebDriver driver;
 
         public ProductPagePOM(IWebDriver driver) { 
-            this.driver = driver;
+            this.driver = driver; //The constructor 
         }
 
-        public IWebElement currentPage =>
-            driver.FindElement(By.ClassName("single_add_to_cart_button"));
-        public IWebElement viewCart => driver.FindElement(By.ClassName("cart-contents"));
+        public IWebElement currentPageAddToCart =>
+            driver.FindElement(By.ClassName("single_add_to_cart_button")); //Finds the "Add to Cart" button
+        public IWebElement viewCart => driver.FindElement(By.ClassName("cart-contents")); // Finds the Cart
 
         public void addToCart() {
-            currentPage.Click();
-            viewCart.Click();
+            currentPageAddToCart.Click(); //Clicks on the "Add to Cart"
+            viewCart.Click(); // Clicks on the cart 
         }
     }
 }

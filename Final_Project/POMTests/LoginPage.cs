@@ -17,8 +17,8 @@ namespace Final_Project.POMTests {
             bool didWeLogin = login.LoginWithValidCredentials(@"test@mail.com", @"HelloPassword123;");
             Assert.That(didWeLogin, Is.True, "We did not login");
 
-            MyAccountPOM button = new MyAccountPOM(driver);
-            button.shopButton();
+            MyAccountPOM myAccountPOM = new MyAccountPOM(driver);
+            myAccountPOM.shopButton();
 
             ShopPagePOM shade = new ShopPagePOM(driver);
             //Thread.Sleep(3000);
@@ -35,7 +35,7 @@ namespace Final_Project.POMTests {
             Thread.Sleep(2000);
             //Thread.Sleep(5000);
             checkout.checkTotalCost();
-            button.logout();
+            myAccountPOM.logout();
             Thread.Sleep(2000);
         }
     }

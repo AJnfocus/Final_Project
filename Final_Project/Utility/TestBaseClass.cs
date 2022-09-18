@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Final_Project.Utility {
     internal class TestBaseClass {
+
         protected IWebDriver driver;
         protected string baseURL = "https://www.edgewordstraining.co.uk/demo-site/";
 

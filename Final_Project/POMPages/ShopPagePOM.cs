@@ -11,18 +11,18 @@ namespace Final_Project.POMPages {
         private IWebDriver driver;
 
         public ShopPagePOM(IWebDriver driver) { 
-            this.driver = driver; 
+            this.driver = driver; // the constructor
         }
 
         public IWebElement sunglass =>
             driver.FindElement(By.CssSelector("#main > ul > li.product.type-product.post-30.status-publish.first.instock.product_cat-accessories.has-post-thumbnail.featured.shipping-taxable.purchasable.product-type-simple > a.woocommerce-LoopProduct-link.woocommerce-loop-product__link"));
-        public IWebElement cap => driver.FindElement(By.CssSelector("#main > ul > li:nth-child(3)"));
+        public IWebElement cap => driver.FindElement(By.CssSelector("#main > ul > li:nth-child(3)")); //Finds the Cap Product
 
-        public void getSunglasses() {
+        public void getSunglasses() { //Method to click on the sunglasses 
             sunglass.Click();
         }
 
-        public void getCap() {
+        public void getCap() { //Method to click on the Cap
             cap.Click();
         }
     }
