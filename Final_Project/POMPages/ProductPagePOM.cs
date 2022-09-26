@@ -14,9 +14,9 @@ namespace Final_Project.POMPages {
             this.driver = driver; //The constructor 
         }
 
-        public IWebElement currentPageAddToCart =>
+        private IWebElement currentPageAddToCart =>
             driver.FindElement(By.ClassName("single_add_to_cart_button")); //Finds the "Add to Cart" button
-        public IWebElement viewCart => driver.FindElement(By.ClassName("cart-contents")); // Finds the Cart
+        private IWebElement viewCart => driver.FindElement(By.ClassName("cart-contents")); // Finds the Cart
 
         public void addToCart() {
             currentPageAddToCart.Click(); //Clicks on the "Add to Cart"

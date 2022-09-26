@@ -18,9 +18,9 @@ namespace Final_Project.POMPages {
             this.driver = driver;
         }
 
-        private IWebElement checkoutButton => driver.FindElement(By.CssSelector("#post-5 > div > div > div.cart-collaterals > div > div"));
+        //private IWebElement checkoutButton => driver.FindElement(By.CssSelector("#post-5 > div > div > div.cart-collaterals > div > div"));
         //private IWebElement checkoutButton => driver.FindElement(By.CssSelector(".alt.button.checkout-button.wc-forward"));
-
+        private IWebElement checkoutButton => driver.FindElement(By.LinkText("Proceed to checkout"));
         private IWebElement nameField => driver.FindElement(By.Id("billing_first_name"));
         private IWebElement surnameField => driver.FindElement(By.Id("billing_last_name"));
         private IWebElement houseStreet => driver.FindElement(By.Id("billing_address_1"));
@@ -32,13 +32,12 @@ namespace Final_Project.POMPages {
         private IWebElement getDate => driver.FindElement(By.CssSelector("div > .woocommerce ul li:nth-child(2) strong"));
 
         public void checkout() { //Method to fill the fourm 
-            //checkoutButton.Click();
-            //Actions act = new Actions(driver);
-            //Thread.Sleep(2000);
-            //act.MoveToElement(checkoutButton).Click().Perform();
-            //Thread.Sleep(9000);
-            //HelpersInstance wait = new HelpersInstance(driver);
-            //wait.WaitForElm(10, By.CssSelector("#post-6 > header > h1"));
+            Actions act = new Actions(driver);
+            act.SendKeys(Keys.PageDown).Build().Perform();
+            Thread.Sleep(2000);
+            checkoutButton.Click();
+            Thread.Sleep(2000);
+
             nameField.Clear();
             surnameField.Clear();
             houseStreet.Clear();
