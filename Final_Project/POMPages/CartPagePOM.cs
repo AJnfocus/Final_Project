@@ -23,17 +23,10 @@ namespace Final_Project.POMPages {
 
         private IWebElement couponCode => driver.FindElement(By.Id("coupon_code")); //Finds the cupon 
         private IWebElement applyButton => driver.FindElement(By.CssSelector("tbody > tr:nth-child(2) > td button"));
-        private IWebElement subTotalText => driver.FindElement(By.CssSelector(
-            "#post-5 > div > div > div.cart-collaterals > div > table > tbody > tr.cart-subtotal > td > span > bdi"));
-        private IWebElement discount => driver.FindElement(By.CssSelector(
-            "#post-5 > div > div > div.cart-collaterals > div > table > tbody > tr.cart-discount.coupon-edgewords > td > span"));
-
-        private IWebElement shippingCost => driver.FindElement(By.CssSelector(
-            "#shipping_method > li > label > span"));
-
-        private IWebElement total => driver.FindElement(By.CssSelector(
-            "#post-5 > div > div > div.cart-collaterals > div > table > tbody > tr.order-total > td > strong > span"));
-
+        private IWebElement subTotalText => driver.FindElement(By.CssSelector("tr.cart-subtotal > td > span > bdi"));
+        private IWebElement discount => driver.FindElement(By.CssSelector("tr.cart-discount.coupon-edgewords > td > span"));
+        private IWebElement shippingCost => driver.FindElement(By.CssSelector("#shipping_method > li > label > span"));
+        private IWebElement total => driver.FindElement(By.CssSelector(" tr.order-total > td > strong"));
         private IWebElement myAccount => driver.FindElement(By.Id("menu-item-46"));
 
         public void applyCoupon(string code) { //Method to set the coupon
@@ -42,43 +35,40 @@ namespace Final_Project.POMPages {
             act.MoveToElement(applyButton).Click().Perform(); // To perform a click function 
         }
 
-        public void CouponCheck() { //Checks the coupon
-            //Console.WriteLine(subTotalText.Text);
-            var value = subTotalText.Text;  //Grabs the subtotal from table
-            value = value.TrimStart('£'); //Remove the £
-            //value = value.Substring(0, value.Length - 3);
-            Console.WriteLine(value);
-            
-            var value2 = discount.Text;
-            value2 = value2.TrimStart('£');
-            priceDiscountFromSite = double.Parse(value2); //Converts the string to double and pass the value to the varaible
-            Console.WriteLine("Subtotal: " + double.Parse(value) + " Discount Price: "+ priceDiscountFromSite);// 
+        public double formatString (IWebElement element) {
+            var value = element.Text;
+            value = value.TrimStart('£');
+            return double.Parse(value);
+        }
 
-            orginalPrice = double.Parse(value);
+        public void CouponCheck() { //Checks the coupon
+            double subTotalValue = formatString(subTotalText);
+
+            var value2 = formatString(discount);
+            priceDiscountFromSite = value2;
+            Console.WriteLine("Subtotal: " + subTotalValue + " Discount Price: "+ priceDiscountFromSite);// 
+
+            orginalPrice = subTotalValue;
             double dicount = 15; //Setting discount to 15%
             dicount = dicount / 100;// 15/100
             //var amount = orginalPrice * dicount;
             totalDiscount = orginalPrice * dicount; //Finding the total discount
             salesPrice = orginalPrice - totalDiscount;
-            Console.WriteLine(salesPrice);
+            Console.WriteLine("Sales price from 15%: " + salesPrice);
             //Assert.That(totalDiscount == priceDiscountFromSite, Is.True,"Coupon Was not found");
         }
 
         public void checkTotalCost() {
-            Console.WriteLine("checking cost");
-            var valueFromSite = shippingCost.Text; //Grabs the shipping cost from the table 
-            valueFromSite = valueFromSite.TrimStart('£');
-            double shippingCostFromSite = double.Parse(valueFromSite);
-            Console.WriteLine(shippingCostFromSite);
+            Console.WriteLine("");
+            Console.WriteLine("Checking cost");
+            double shippingCostFromSite = formatString(shippingCost);
 
-            var valueFromSite2 = total.Text; //Grabs the total cost from the table 
-            valueFromSite2 = valueFromSite2.TrimStart('£');
-            double totalCostFromSite = double.Parse(valueFromSite2);
-            Console.WriteLine(totalCostFromSite);
+            double totalCostFromSite = formatString(total);
+            Console.WriteLine("Total from the site: " + totalCostFromSite);
 
             Console.WriteLine("Orignal Price: " + orginalPrice + " Total Discount: " + totalDiscount + " Shipping Cost: " + shippingCostFromSite);
             double totalCost = (orginalPrice - totalDiscount) + shippingCostFromSite;
-            Console.WriteLine(totalCost);
+            Console.WriteLine("Total calculated from 15%: " + totalCost);
             //Assert.That(totalCost == totalCostFromSite, Is.True, "Values does not matach");
             myAccount.Click();
         }

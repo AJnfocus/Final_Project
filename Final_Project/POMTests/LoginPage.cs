@@ -21,9 +21,7 @@ namespace Final_Project.POMTests {
             myAccountPOM.shopButton();
 
             ShopPagePOM shade = new ShopPagePOM(driver);
-            //Thread.Sleep(3000);
             shade.getSunglasses();
-            //Thread.Sleep(3000);
 
             ProductPagePOM product = new ProductPagePOM(driver);
             product.addToCart();
@@ -33,7 +31,6 @@ namespace Final_Project.POMTests {
             Thread.Sleep(2000);
             checkout.CouponCheck();
             Thread.Sleep(2000);
-            //Thread.Sleep(5000);
             checkout.checkTotalCost();
             myAccountPOM.logout();
             Thread.Sleep(2000);
