@@ -13,7 +13,7 @@ namespace Final_Project.POMTests {
             driver.Url = baseURL + "/my-account/";
 
             LoginPagePOM loginPage = new LoginPagePOM(driver);
-            bool didWeLogin = loginPage.LoginWithValidCredentials(@"hello@mail.com", @"Password@<12345678");
+            bool didWeLogin = loginPage.LoginWithValidCredentials();
             Assert.That(didWeLogin, Is.True, "We did not login");
 
             MyAccountPOM accountPOM = new MyAccountPOM(driver);
@@ -26,25 +26,24 @@ namespace Final_Project.POMTests {
             productPagePOM.addToCart();
 
             CartPagePOM cartPagePOM = new CartPagePOM(driver);
-            cartPagePOM.applyCoupon("edgewords");
-            Thread.Sleep(2000);
+            cartPagePOM.applyCoupon();
             cartPagePOM.CouponCheck();
             Thread.Sleep(2000);
 
             CheckoutPagePOM checkoutPagePOM = new CheckoutPagePOM(driver);
-            //driver.Url = "https://www.edgewordstraining.co.uk/demo-site/checkout/";
-            Thread.Sleep(2000);
             checkoutPagePOM.checkout();
-            Thread.Sleep(2000);
 
             int order = checkoutPagePOM.checkOrderNumber();
-            Thread.Sleep(2000);
-
             int order2 = accountPOM.checkOrder();
-            Assert.That(order == order2, Is.True, "Wrong Order Number Found");
-            Thread.Sleep(5000);
+            Console.WriteLine("Expected: #" + order + " and found: #" + order2);
+            try {
+                Assert.That(order == order2, Is.True, "Wrong Order Number Found");
+            }
+            catch (Exception) {
+                Console.WriteLine("Expected: #" + order + " But Found: #" + order2);
+                throw;
+            }
             accountPOM.logout();
-
         }
     }
 }

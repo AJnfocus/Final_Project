@@ -1,4 +1,6 @@
-﻿using OpenQA.Selenium;
+﻿using Final_Project.Utility;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,18 +25,32 @@ namespace Final_Project.POMPages {
             "nav.woocommerce-MyAccount-navigation li:nth-child(2)")); //Finds the order button within My account
         private IWebElement getOrderNumber => driver.FindElement(By.CssSelector("table tr td:nth-child(1) a")); //Finds the order number from table
         private IWebElement getDate => driver.FindElement(By.CssSelector("table tr td:nth-child(2) time")); //Finds the date within the table
+        private IWebElement viewCart => driver.FindElement(By.ClassName("cart-contents"));
 
         public void shopButton() {
             shopNavButton.Click(); //Clicks on the shop button the nav bar
         }
 
         public void logout() {
+            Actions act = new Actions(driver);
+            IAction scroll = act.ScrollByAmount(0, 300).Build();
+            scroll.Perform();
             logoutButton.Click(); // Clicks on the logout button
+        }
+
+        public void accountButton() {
+            myAccountButton.Click();
+        }
+
+        public void viewBasket() {
+            viewCart.Click();
         }
 
         public int checkOrder() { //Returns the order number from My Account
             myAccountButton.Click(); //Clicks on the My Account once we the order has been confirmed 
             ordersButton.Click(); //Clicks on the order 
+            HelpersInstance wait = new HelpersInstance(driver);
+            wait.WaitForElm(5, By.CssSelector("table tr td:nth-child(1) a"));
             string convert = getOrderNumber.Text; //Grab the text from IWebElement 
             convert = convert.Trim('#'); //Trims the # in front of the order 
             orderNumber = int.Parse(convert); // Converts it to an int

@@ -34,7 +34,10 @@ namespace Final_Project.POMPages {
         }
 
         //Helper method
-        public Boolean LoginWithValidCredentials(string username, string password) { //Calls both of method above and have try and catch
+        public Boolean LoginWithValidCredentials() { //Calls both of method above and have try and catch
+            string username = Environment.GetEnvironmentVariable("username");
+            string password = Environment.GetEnvironmentVariable("password");
+
             setUsername(username);
             setPassword(password);
             goSubmit();

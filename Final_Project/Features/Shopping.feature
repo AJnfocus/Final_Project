@@ -24,4 +24,4 @@ Scenario: Add an item to the basket and go through the checkout
 
 #ctrl k + d
 
-#Thigs to do Screenshot, discount code, console log, conversions, button checkout, clear basket  
+#Thigs to do Screenshot, console log,

@@ -14,9 +14,8 @@ namespace Final_Project.POMPages {
             this.driver = driver; // the constructor
         }
 
-        public IWebElement sunglass =>
-            driver.FindElement(By.CssSelector("#main > ul > li.product.type-product.post-30.status-publish.first.instock.product_cat-accessories.has-post-thumbnail.featured.shipping-taxable.purchasable.product-type-simple > a.woocommerce-LoopProduct-link.woocommerce-loop-product__link"));
-        public IWebElement cap => driver.FindElement(By.CssSelector("#main > ul > li:nth-child(3)")); //Finds the Cap Product
+        private IWebElement sunglass => driver.FindElement(By.CssSelector("#main > ul > li:nth-child(10)")); // Finds the sunglasses
+        private IWebElement cap => driver.FindElement(By.CssSelector("#main > ul > li:nth-child(3)")); //Finds the Cap Product
 
         public void getSunglasses() { //Method to click on the sunglasses 
             sunglass.Click();

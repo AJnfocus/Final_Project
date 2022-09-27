@@ -14,7 +14,7 @@ namespace Final_Project.POMTests {
             driver.Url = baseURL + "/my-account/"; //Navigating to the login page 
 
             LoginPagePOM login = new LoginPagePOM(driver);
-            bool didWeLogin = login.LoginWithValidCredentials(@"test@mail.com", @"HelloPassword123;");
+            bool didWeLogin = login.LoginWithValidCredentials();
             Assert.That(didWeLogin, Is.True, "We did not login");
 
             MyAccountPOM myAccountPOM = new MyAccountPOM(driver);
@@ -27,13 +27,13 @@ namespace Final_Project.POMTests {
             product.addToCart();
 
             CartPagePOM checkout = new CartPagePOM(driver);
-            checkout.applyCoupon("edgewords");
-            Thread.Sleep(2000);
+            checkout.applyCoupon();
             checkout.CouponCheck();
-            Thread.Sleep(2000);
             checkout.checkTotalCost();
+            myAccountPOM.viewBasket();
+            checkout.removeItem();
+            myAccountPOM.accountButton();
             myAccountPOM.logout();
-            Thread.Sleep(2000);
         }
     }
 }

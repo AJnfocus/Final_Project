@@ -31,7 +31,7 @@ namespace Final_Project.StepDefinitions {
                 username = row["Username"].ToString();
                 password = row["Password"].ToString();
                 //Console.WriteLine(username + " " + password);
-                bool didWeLogin = loginPagePOM.LoginWithValidCredentials(username, password);
+                bool didWeLogin = loginPagePOM.LoginWithValidCredentials();
                 Assert.That(didWeLogin, Is.True, "We did not login");
             }
         }
@@ -51,7 +51,7 @@ namespace Final_Project.StepDefinitions {
         [When(@"apply a coupon '(.*)'")]
         public void WhenApplyACoupon(string edgeword0) {
             CartPagePOM cartPagePOM = new CartPagePOM(driver);
-            cartPagePOM.applyCoupon(edgeword0);
+            cartPagePOM.applyCoupon();
         }
 
         [Then(@"it should apply a discount of ""(.*)""% off from the subtotal")]
@@ -63,6 +63,7 @@ namespace Final_Project.StepDefinitions {
             cartPagePOM.checkTotalCost();
             Thread.Sleep(2000);
             MyAccountPOM myAccountPOM = new MyAccountPOM(driver);
+            cartPagePOM.removeItem();
             myAccountPOM.logout();
         }
 
