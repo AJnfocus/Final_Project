@@ -6,7 +6,8 @@ Background:
 	Given When I am in the login page
 	And I provide my login details
 		| Username      | Password          |
-		| test@mail.com | HelloPassword123; |
+		| test@mail.com | HelloPassword123; | 
+		#password 
 
 @functional
 Scenario: Add an item to the basket and apply a coupon
@@ -23,3 +24,4 @@ Scenario: Add an item to the basket and go through the checkout
 	Then a order number would appear in the users account
 
 #ctrl k + d
+#Hello Steve and Tom!

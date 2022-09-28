@@ -31,11 +31,10 @@ namespace Final_Project.POMPages {
         private IWebElement myAccount => driver.FindElement(By.Id("menu-item-46"));//Find My Account button 
         private IWebElement removeCoupon => driver.FindElement(By.CssSelector("tr.cart-discount.coupon-edgewords > td > a")); // Removes the coupon
         private IWebElement removeProduct => driver.FindElement(By.CssSelector("tr > td a")); // Removes the product
-        private IWebElement productTable => driver.FindElement(By.ClassName("woocommerce-cart-form"));
 
         public void applyCoupon() { //Method to set the coupon
             string coupon = Environment.GetEnvironmentVariable("coupon");//Sets the string with the local variable
-            couponCode.SendKeys(coupon); //Sends the keys typed from the parameters 
+            couponCode.SendKeys(coupon); //Sends the keys from variables  
             Console.WriteLine("\nApplying Coupon");
             Actions act = new Actions(driver); //Set a new Action object 
             act.MoveToElement(applyButton).Click().Perform(); // To perform a click function 
@@ -45,9 +44,10 @@ namespace Final_Project.POMPages {
             var value = element.Text;//Takes the IWebElement and converts to a string  
             value = value.TrimStart('£'); //Removes the £ char (£31 -> 31)
             return double.Parse(value); // Converts string to a double 
+            //decimal 
         }
 
-        public void removeItem() {
+        public void removeItem() { // Removes the item and coupon
             HelpersInstance wait = new HelpersInstance(driver); //Create a helper class
             Actions act = new Actions(driver);
             IAction scroll = act.ScrollByAmount(0, 200).Build(); // Scroll to page to view remove coupon
@@ -60,6 +60,7 @@ namespace Final_Project.POMPages {
 
             wait.WaitForElm(10, By.CssSelector("tr > td a")); //Wait for the elem to be ready
             wait.takeScreenShot(driver, "RemoveItem");
+            Thread.Sleep(1000);
             removeProduct.Click(); //Removes the product
         }
 
@@ -82,7 +83,7 @@ namespace Final_Project.POMPages {
             Console.WriteLine("Sales price from 15%: £" + salesPrice);
             wait.takeScreenShot(driver, "CouponCheck");
             try {
-               //Assert.That(totalDiscount == priceDiscountFromSite, Is.True,"The right coupon percentage Was not found");
+               Assert.That(totalDiscount == priceDiscountFromSite, Is.True,"The right coupon percentage Was not found");
             }
             catch (Exception) {
                 double actualPercent = (priceDiscountFromSite / orginalPrice) * 100; //Find the actual percent using global variables
@@ -105,7 +106,7 @@ namespace Final_Project.POMPages {
             totalPrice = (orginalPrice - totalDiscount) + shippingCostFromSite;
             Console.WriteLine("Total calculated from 15%: £" + totalPrice);
             try {
-                //Assert.That(totalPrice == totalCostFromSite, Is.True, "Values does not matach");
+                Assert.That(totalPrice == totalCostFromSite, Is.True, "Values does not matach");
             }
             catch (Exception) {
                 Console.WriteLine("");
@@ -115,6 +116,7 @@ namespace Final_Project.POMPages {
                 
                 throw;
             }
+            Thread.Sleep(2000);
             myAccount.Click();
         }
     }

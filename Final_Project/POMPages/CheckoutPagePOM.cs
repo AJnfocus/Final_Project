@@ -86,7 +86,7 @@ namespace Final_Project.POMPages {
             setPostCode(postcode);
             setPhone(phone);
 
-
+            Thread.Sleep(1000);
             checkPaymentButton.Click();
             wait.WaitForElm(5, By.Id("place_order"));
             //driver.Quit();
