@@ -8,13 +8,13 @@ Background:
 		| Username      | Password          |
 		| test@mail.com | HelloPassword123; |
 
-@tag1
+@functional
 Scenario: Add an item to the basket and apply a coupon
 	When I add an item called 'item' into my basket
 	And apply a coupon 'edgewords'
 	Then it should apply a discount of "15"% off from the subtotal
 
-@tag1
+@functional
 Scenario: Add an item to the basket and go through the checkout
 	When I add an item called 'item' into my basket
 	And place an order with vaild billing details

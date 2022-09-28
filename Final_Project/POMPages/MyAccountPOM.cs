@@ -39,11 +39,11 @@ namespace Final_Project.POMPages {
         }
 
         public void accountButton() {
-            myAccountButton.Click();
+            myAccountButton.Click(); //Clicks on the my account button
         }
 
         public void viewBasket() {
-            viewCart.Click();
+            viewCart.Click(); // Clicks on the basket 
         }
 
         public int checkOrder() { //Returns the order number from My Account

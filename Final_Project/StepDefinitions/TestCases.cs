@@ -57,13 +57,12 @@ namespace Final_Project.StepDefinitions {
         [Then(@"it should apply a discount of ""(.*)""% off from the subtotal")]
         public void ThenItShouldApplyADiscountOfOffFromTheSubtotal(string p0) {
             CartPagePOM cartPagePOM = new CartPagePOM(driver);
-            Thread.Sleep(2000);
             cartPagePOM.CouponCheck();
-            Thread.Sleep(2000);
             cartPagePOM.checkTotalCost();
-            Thread.Sleep(2000);
             MyAccountPOM myAccountPOM = new MyAccountPOM(driver);
+            myAccountPOM.viewBasket();
             cartPagePOM.removeItem();
+            myAccountPOM.accountButton();
             myAccountPOM.logout();
         }
 
@@ -71,9 +70,7 @@ namespace Final_Project.StepDefinitions {
         public void WhenPlaceAnOrderWithVaildBillingDetails(Table table) {
             CheckoutPagePOM checkoutPagePOM = new CheckoutPagePOM(driver);
             checkoutPagePOM.checkout();
-            Thread.Sleep(2000);
             order1 = checkoutPagePOM.checkOrderNumber();
-            Thread.Sleep(2000);
         }
 
         [Then(@"a order number would appear in the users account")]
@@ -81,7 +78,6 @@ namespace Final_Project.StepDefinitions {
             MyAccountPOM myAccountPOM = new MyAccountPOM(driver);
             int order2 = myAccountPOM.checkOrder();
             Assert.That(order1 == order2, Is.True, "Wrong Order Number Found");
-            Thread.Sleep(5000);
             myAccountPOM.logout();
         }
     }

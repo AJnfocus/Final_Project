@@ -33,14 +33,16 @@ namespace Final_Project.POMTests {
             CheckoutPagePOM checkoutPagePOM = new CheckoutPagePOM(driver);
             checkoutPagePOM.checkout();
 
-            int order = checkoutPagePOM.checkOrderNumber();
-            int order2 = accountPOM.checkOrder();
+            int order = checkoutPagePOM.checkOrderNumber(); //grabs order number from order summary 
+            int order2 = accountPOM.checkOrder(); // Grabs order number from My Account orders tab
             Console.WriteLine("Expected: #" + order + " and found: #" + order2);
             try {
                 Assert.That(order == order2, Is.True, "Wrong Order Number Found");
+                //Checks if two order numbers matches
             }
             catch (Exception) {
                 Console.WriteLine("Expected: #" + order + " But Found: #" + order2);
+                //Error message if the wrong order number is found
                 throw;
             }
             accountPOM.logout();

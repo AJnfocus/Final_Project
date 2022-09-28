@@ -11,7 +11,7 @@ namespace Final_Project.POMPages {
     internal class CartPagePOM {
 
         private IWebDriver driver;
-        private double orginalPrice; 
+        private double orginalPrice; //Gloabl fields which is used to store values 
         private double salesPrice;
         private double priceDiscountFromSite;
         private double totalPrice;
@@ -21,51 +21,51 @@ namespace Final_Project.POMPages {
             this.driver = driver; //Constructor
         }
 
-        private IWebElement couponCode => driver.FindElement(By.Id("coupon_code")); //Finds the cupon 
-        private IWebElement applyButton => driver.FindElement(By.CssSelector("tbody > tr:nth-child(2) > td button"));
-        private IWebElement subTotalText => driver.FindElement(By.CssSelector("tr.cart-subtotal > td > span > bdi"));
-        private IWebElement discounts => driver.FindElement(By.CssSelector("tr.cart-discount.coupon-edgewords > td > span"));
-        private IWebElement shippingCost => driver.FindElement(By.CssSelector("#shipping_method > li > label > span"));
-        private IWebElement total => driver.FindElement(By.CssSelector(" tr.order-total > td > strong"));
-        private IWebElement myAccount => driver.FindElement(By.Id("menu-item-46"));
-        private IWebElement removeCoupon => driver.FindElement(By.CssSelector("tr.cart-discount.coupon-edgewords > td > a"));
-        private IWebElement removeProduct => driver.FindElement(By.CssSelector("tr > td a"));
+        private IWebElement couponCode => driver.FindElement(By.Id("coupon_code")); //Finds the coupon 
+        private IWebElement applyButton => driver.FindElement(By.CssSelector("tbody > tr:nth-child(2) > td button"));//Finds the apply button
+        private IWebElement subTotalText => driver.FindElement(By.CssSelector("tr.cart-subtotal > td > span > bdi"));//Finds the subtotal
+        private IWebElement discounts => driver.FindElement(By.CssSelector("tr.cart-discount.coupon-edgewords > td > span"));// Finds the discount
+        private IWebElement shippingCost => driver.FindElement(By.CssSelector("#shipping_method > li > label > span")); //Finds the shipping
+        private IWebElement total => driver.FindElement(By.CssSelector(" tr.order-total > td > strong")); //Finds the total
+        private IWebElement myAccount => driver.FindElement(By.Id("menu-item-46"));//Find My Account button 
+        private IWebElement removeCoupon => driver.FindElement(By.CssSelector("tr.cart-discount.coupon-edgewords > td > a")); // Removes the coupon
+        private IWebElement removeProduct => driver.FindElement(By.CssSelector("tr > td a")); // Removes the product
 
         public void applyCoupon() { //Method to set the coupon
-            string coupon = Environment.GetEnvironmentVariable("coupon");
+            string coupon = Environment.GetEnvironmentVariable("coupon");//Sets the string with the local variable
             couponCode.SendKeys(coupon); //Sends the keys typed from the parameters 
             Actions act = new Actions(driver); //Set a new Action object 
             act.MoveToElement(applyButton).Click().Perform(); // To perform a click function 
         }
 
-        public double formatString (IWebElement element) {
-            var value = element.Text;
-            value = value.TrimStart('£');
-            return double.Parse(value);
+        public double formatString (IWebElement element) { //Formats the text to show the double figure
+            var value = element.Text;//Takes the IWebElement and converts to a string  
+            value = value.TrimStart('£'); //Removes the £ char (£31 -> 31)
+            return double.Parse(value); // Converts string to a double 
         }
 
         public void removeItem() {
-            HelpersInstance wait = new HelpersInstance(driver);
+            HelpersInstance wait = new HelpersInstance(driver); //Create a helper class
             Actions act = new Actions(driver);
-            IAction scroll = act.ScrollByAmount(0, 200).Build();
+            IAction scroll = act.ScrollByAmount(0, 200).Build(); // Scroll to page to view remove coupon
             scroll.Perform();
 
             wait.WaitForElm(10, By.CssSelector("tr.cart-discount.coupon-edgewords > td > a"));
             Thread.Sleep(1000);
-            removeCoupon.Click();
+            removeCoupon.Click();// Removes the coupon
 
-            wait.WaitForElm(10, By.CssSelector("tr > td a"));
-            removeProduct.Click();
+            wait.WaitForElm(10, By.CssSelector("tr > td a")); //Wait for the elem to be ready
+            removeProduct.Click(); //Removes the product
         }
 
         public void CouponCheck() { //Checks the coupon
             HelpersInstance wait = new HelpersInstance(driver);
             wait.WaitForElm(5, By.CssSelector("div.woocommerce-notices-wrapper > div"));
-            double subTotalValue = formatString(subTotalText);
+            double subTotalValue = formatString(subTotalText); // Calls the convert method
 
             wait.WaitForElm(5, By.CssSelector("tr.cart-discount.coupon-edgewords > td > span"));
             var value2 = formatString(discounts);
-            priceDiscountFromSite = value2;
+            priceDiscountFromSite = value2; //Stpre the values
             Console.WriteLine("Subtotal: " + subTotalValue + " Discount Price: " + priceDiscountFromSite);// 
 
             orginalPrice = subTotalValue;
@@ -78,9 +78,9 @@ namespace Final_Project.POMPages {
                //Assert.That(totalDiscount == priceDiscountFromSite, Is.True,"The right coupon percentage Was not found");
             }
             catch (Exception) {
-                double actualPercent = (priceDiscountFromSite / orginalPrice) * 100;
+                double actualPercent = (priceDiscountFromSite / orginalPrice) * 100; //Find the actual percent using global variables
                 Console.WriteLine("Expected: " + (discount * 100) + "% But was: " + actualPercent +'%');
-                removeItem();
+                removeItem(); //Removes the item, easier for me to automate the test
                 throw;
             }
         }
@@ -88,7 +88,7 @@ namespace Final_Project.POMPages {
         public void checkTotalCost() {
             Console.WriteLine("");
             Console.WriteLine("Checking cost");
-            double shippingCostFromSite = formatString(shippingCost);
+            double shippingCostFromSite = formatString(shippingCost); //Calls the covert method
 
             double totalCostFromSite = formatString(total);
             Console.WriteLine("Total from the site: " + totalCostFromSite);
@@ -101,7 +101,7 @@ namespace Final_Project.POMPages {
             }
             catch (Exception) {
                 Console.WriteLine("");
-                double expectedCost = shippingCostFromSite + salesPrice;
+                double expectedCost = shippingCostFromSite + salesPrice;//Finds the expectedCost from 15%
                 Console.WriteLine("Expected: £" + expectedCost + " But was: £" + totalCostFromSite);
                 removeItem();
                 throw;

@@ -31,8 +31,44 @@ namespace Final_Project.POMPages {
         private IWebElement getOrderNumber => driver.FindElement(By.CssSelector("div > .woocommerce ul li strong:nth-child(1)"));
         private IWebElement getDate => driver.FindElement(By.CssSelector("div > .woocommerce ul li:nth-child(2) strong"));
 
+        public CheckoutPagePOM setFirstName(string value) {
+            nameField.Clear();
+            nameField.SendKeys(value);
+            return this;
+        }
+        public CheckoutPagePOM setSurnameField(string value) {
+            surnameField.Clear();
+            surnameField.SendKeys(value);
+            return this;
+        }
+        public CheckoutPagePOM setHouseStreet(string value) {
+            houseStreet.Clear();
+            houseStreet.SendKeys(value);
+            return this;
+        }
+        public CheckoutPagePOM setCity(string value) {
+            cityField.Clear();
+            cityField.SendKeys(value);
+            return this;
+        }
+        public CheckoutPagePOM setPostCode(string value) {
+            postCodeField.Clear();
+            postCodeField.SendKeys(value);
+            return this;
+        }
+        public CheckoutPagePOM setPhone(string value) {
+            phoneField.Clear();
+            phoneField.SendKeys(value);
+            return this;
+        }
         public void checkout() { //Method to fill the fourm 
-            
+            string name = Environment.GetEnvironmentVariable("firstName");
+            string lastName = Environment.GetEnvironmentVariable("surname");
+            string house = Environment.GetEnvironmentVariable("houseStreet");
+            string city = Environment.GetEnvironmentVariable("city");
+            string postcode = Environment.GetEnvironmentVariable("postcode");
+            string phone = Environment.GetEnvironmentVariable("phone");
+
             HelpersInstance wait = new HelpersInstance(driver);
             Actions act = new Actions(driver);
             IAction scroll = act.ScrollByAmount(0, 500).Build();
@@ -42,22 +78,16 @@ namespace Final_Project.POMPages {
             checkoutButton.Click();
 
             wait.WaitForElm(5, By.Id("billing_first_name"));
-            nameField.Clear();
-            surnameField.Clear();
-            houseStreet.Clear();
-            cityField.Clear();
-            postCodeField.Clear();
-            phoneField.Clear();
-
-            nameField.SendKeys("Daz");
-            surnameField.SendKeys("Bo");
-            houseStreet.SendKeys("13 Happy Road");
-            cityField.SendKeys("London");
-            postCodeField.SendKeys("PA21 2BE");
-            phoneField.SendKeys("07717278");
+            setFirstName(name);
+            setSurnameField(lastName);
+            setHouseStreet(house);
+            setCity(city);
+            setPostCode(postcode);
+            setPhone(phone);
 
             checkPaymentButton.Click();
             wait.WaitForElm(5, By.Id("place_order"));
+            //driver.Quit();
             placeOrderButton.Click();
         }
 

@@ -94,11 +94,11 @@ namespace Final_Project.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Add an item to the basket and apply a coupon")]
-        [NUnit.Framework.CategoryAttribute("tag1")]
+        [NUnit.Framework.CategoryAttribute("functional")]
         public void AddAnItemToTheBasketAndApplyACoupon()
         {
             string[] tagsOfScenario = new string[] {
-                    "tag1"};
+                    "functional"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add an item to the basket and apply a coupon", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 12
@@ -129,11 +129,11 @@ this.FeatureBackground();
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Add an item to the basket and go through the checkout")]
-        [NUnit.Framework.CategoryAttribute("tag1")]
+        [NUnit.Framework.CategoryAttribute("functional")]
         public void AddAnItemToTheBasketAndGoThroughTheCheckout()
         {
             string[] tagsOfScenario = new string[] {
-                    "tag1"};
+                    "functional"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add an item to the basket and go through the checkout", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 18
