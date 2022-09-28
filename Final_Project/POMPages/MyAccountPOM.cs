@@ -51,6 +51,7 @@ namespace Final_Project.POMPages {
             ordersButton.Click(); //Clicks on the order 
             HelpersInstance wait = new HelpersInstance(driver);
             wait.WaitForElm(5, By.CssSelector("table tr td:nth-child(1) a"));
+            wait.takeScreenShot(driver, "Order Number 2");
             string convert = getOrderNumber.Text; //Grab the text from IWebElement 
             convert = convert.Trim('#'); //Trims the # in front of the order 
             orderNumber = int.Parse(convert); // Converts it to an int

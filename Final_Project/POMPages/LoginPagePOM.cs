@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Final_Project.Utility.HelperStatic;
+
 
 namespace Final_Project.POMPages {
     internal class LoginPagePOM {
@@ -40,6 +42,7 @@ namespace Final_Project.POMPages {
 
             setUsername(username);
             setPassword(password);
+            takeScreenShot(driver, "Login");
             goSubmit();
 
             try {

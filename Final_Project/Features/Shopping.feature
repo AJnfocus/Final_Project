@@ -23,5 +23,3 @@ Scenario: Add an item to the basket and go through the checkout
 	Then a order number would appear in the users account
 
 #ctrl k + d
-
-#Thigs to do Screenshot, console log,

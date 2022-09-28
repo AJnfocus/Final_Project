@@ -16,7 +16,7 @@ namespace Final_Project.Utility {
 
         [SetUp]
         public void Setup() {
-            string browser = Environment.GetEnvironmentVariable("BROWSER");
+            string browser = Environment.GetEnvironmentVariable("BROWSER"); //Depending on the runsetting it will run the following browser 
             switch (browser) {
                 case "firefox":
                     driver = new FirefoxDriver();
@@ -33,12 +33,12 @@ namespace Final_Project.Utility {
                     driver = new ChromeDriver();
                     break;
             }
-            driver.Manage().Window.Maximize();
+            driver.Manage().Window.Maximize(); //Makes the window full screen 
         }
 
         [TearDown]
         public void TearDown() {
-            Thread.Sleep(3000);
+            Thread.Sleep(3000);  //Tears down the browser if it fails or passes 
             driver.Quit();
         }
     }

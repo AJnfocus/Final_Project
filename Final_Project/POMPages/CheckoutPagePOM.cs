@@ -31,7 +31,7 @@ namespace Final_Project.POMPages {
         private IWebElement getOrderNumber => driver.FindElement(By.CssSelector("div > .woocommerce ul li strong:nth-child(1)"));
         private IWebElement getDate => driver.FindElement(By.CssSelector("div > .woocommerce ul li:nth-child(2) strong"));
 
-        public CheckoutPagePOM setFirstName(string value) {
+        public CheckoutPagePOM setFirstName(string value) { //Makes a set method for each field 
             nameField.Clear();
             nameField.SendKeys(value);
             return this;
@@ -62,7 +62,8 @@ namespace Final_Project.POMPages {
             return this;
         }
         public void checkout() { //Method to fill the fourm 
-            string name = Environment.GetEnvironmentVariable("firstName");
+            Console.WriteLine("\nEntering user address  ");
+            string name = Environment.GetEnvironmentVariable("firstName"); //Grabing info from local run setting
             string lastName = Environment.GetEnvironmentVariable("surname");
             string house = Environment.GetEnvironmentVariable("houseStreet");
             string city = Environment.GetEnvironmentVariable("city");
@@ -71,19 +72,20 @@ namespace Final_Project.POMPages {
 
             HelpersInstance wait = new HelpersInstance(driver);
             Actions act = new Actions(driver);
-            IAction scroll = act.ScrollByAmount(0, 500).Build();
+            IAction scroll = act.ScrollByAmount(0, 500).Build(); //Action class to scroll down
             scroll.Perform();
             
-            wait.WaitForElm(10, By.LinkText("Proceed to checkout"));
+            wait.WaitForElm(10, By.LinkText("Proceed to checkout")); //Wait until you see the button
             checkoutButton.Click();
 
             wait.WaitForElm(5, By.Id("billing_first_name"));
-            setFirstName(name);
+            setFirstName(name); //Calls the method above and pass through the runsetting variables 
             setSurnameField(lastName);
             setHouseStreet(house);
             setCity(city);
             setPostCode(postcode);
             setPhone(phone);
+
 
             checkPaymentButton.Click();
             wait.WaitForElm(5, By.Id("place_order"));
@@ -97,6 +99,7 @@ namespace Final_Project.POMPages {
             orderNumber = int.Parse(getOrderNumber.Text); //Converts the text to int 
             date = getDate.Text;
             Console.WriteLine(orderNumber + " " + date); //Prints out to console 
+            wait.takeScreenShot(driver, "Order Number 1");
             return orderNumber; // Returns the order number
         }
 
