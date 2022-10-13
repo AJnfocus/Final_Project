@@ -27,23 +27,10 @@ namespace Final_Project.POMPages {
         private IWebElement getDate => driver.FindElement(By.CssSelector("table tr td:nth-child(2) time")); //Finds the date within the table
         private IWebElement viewCart => driver.FindElement(By.ClassName("cart-contents"));
 
-        public void shopButton() {
-            shopNavButton.Click(); //Clicks on the shop button the nav bar
-        }
-
         public void logout() {
-            Actions act = new Actions(driver);
-            IAction scroll = act.ScrollByAmount(0, 300).Build();
-            scroll.Perform();
+            HelpersInstance help = new HelpersInstance(driver);
+            help.ScrollPage(driver, 300);
             logoutButton.Click(); // Clicks on the logout button
-        }
-
-        public void accountButton() {
-            myAccountButton.Click(); //Clicks on the my account button
-        }
-
-        public void viewBasket() {
-            viewCart.Click(); // Clicks on the basket 
         }
 
         public int checkOrder() { //Returns the order number from My Account

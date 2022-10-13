@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenQA.Selenium.Interactions;
+using Final_Project.POMPages;
 
 namespace Final_Project.Utility {
     internal class HelpersInstance {
@@ -23,6 +25,30 @@ namespace Final_Project.Utility {
             ITakesScreenshot ssdriver = driver as ITakesScreenshot;
             Screenshot screenshot = ssdriver.GetScreenshot();
             screenshot.SaveAsFile(@"C:\Screenshot\FinalProject\" + screenShotName +".png", ScreenshotImageFormat.Png);
+        }
+
+        public void ScrollPage(IWebDriver driver, int amount) {
+            Actions act = new Actions(driver);
+            IAction scroll = act.ScrollByAmount(0, amount).Build(); // Scroll to page to view remove coupon
+            scroll.Perform();
+        }
+
+        public void removeItems(IWebDriver driver) {
+            CartPagePOM cartPagePOM = new CartPagePOM(driver);
+            NavBarPOM navBarPOM = new NavBarPOM(driver);
+
+            navBarPOM.cartButton();
+            Console.WriteLine("\nRemoving product and coupon");
+            ScrollPage(driver, 200);
+
+            WaitForElm(10, By.CssSelector("tr.cart-discount.coupon-edgewords > td > a"));
+            Thread.Sleep(1000);
+            cartPagePOM.removeCoupon.Click(); //Removes the coupon
+
+            WaitForElm(10, By.CssSelector("tr > td a")); //Wait for the elem to be ready
+            takeScreenShot(driver, "RemoveItem");
+            Thread.Sleep(1000);
+            cartPagePOM.removeProduct.Click();//Removes the product
         }
     }
 }

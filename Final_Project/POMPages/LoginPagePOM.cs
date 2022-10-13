@@ -1,10 +1,10 @@
-﻿using OpenQA.Selenium;
+﻿using Final_Project.Utility;
+using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static Final_Project.Utility.HelperStatic;
 
 
 namespace Final_Project.POMPages {
@@ -18,6 +18,8 @@ namespace Final_Project.POMPages {
         public IWebElement loginField => driver.FindElement(By.Id("username")); //Finds the login   
         public IWebElement passwordField => driver.FindElement(By.Id("password"));//Finds the password
         public IWebElement submitButton => driver.FindElement(By.Name("login"));// Finds the sumbit button
+        private IWebElement errorEle => driver.FindElement(By.ClassName("woocommerce-error"));
+
 
         public LoginPagePOM setUsername(string username) {//Method to set the username 
             loginField.Clear();
@@ -36,24 +38,14 @@ namespace Final_Project.POMPages {
         }
 
         //Helper method
-        public Boolean LoginWithValidCredentials() { //Calls both of method above and have try and catch
-            string username = Environment.GetEnvironmentVariable("username");
-            string password = Environment.GetEnvironmentVariable("password");
-
+        public Boolean LoginWithValidCredentials(string username) { //Calls both of method above and have try and catch
+            HelpersInstance wait = new HelpersInstance(driver);
+            string password = Environment.GetEnvironmentVariable("password"); //Gets the password from local file
             setUsername(username);
             setPassword(password);
-            takeScreenShot(driver, "Login");
+            wait.takeScreenShot(driver, "Login"); 
             goSubmit();
-
-            try {
-                driver.SwitchTo().Alert(); //Attempt to switch to an alert. If we login there's no alert.
-            }
-            catch (Exception) {
-                //No Alert so catch error
-                //We must have logged in
-                return true;
-            }
-            return false; // if there was an alert we didn't login
+            return true;
         }
     }
 }

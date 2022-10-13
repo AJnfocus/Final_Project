@@ -82,11 +82,9 @@ namespace Final_Project.Features
  testRunner.Given("When I am in the login page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Username",
-                        "Password"});
+                        "Username"});
             table1.AddRow(new string[] {
-                        "test@mail.com",
-                        "HelloPassword123;"});
+                        "test@mail.com"});
 #line 7
  testRunner.And("I provide my login details", ((string)(null)), table1, "And ");
 #line hidden
@@ -115,7 +113,7 @@ this.ScenarioInitialize(scenarioInfo);
 this.FeatureBackground();
 #line hidden
 #line 14
- testRunner.When("I add an item called \'item\' into my basket", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I add an item called \'sunglasses\' into my basket", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 15
  testRunner.And("apply a coupon \'edgewords\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -150,7 +148,7 @@ this.ScenarioInitialize(scenarioInfo);
 this.FeatureBackground();
 #line hidden
 #line 20
- testRunner.When("I add an item called \'item\' into my basket", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I add an item called \'cap\' into my basket", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
                 TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
                             "First Name",

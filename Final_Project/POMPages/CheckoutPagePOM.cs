@@ -25,7 +25,6 @@ namespace Final_Project.POMPages {
         private IWebElement cityField => driver.FindElement(By.Id("billing_city"));
         private IWebElement postCodeField => driver.FindElement(By.Id("billing_postcode"));
         private IWebElement phoneField => driver.FindElement(By.Id("billing_phone"));
-        //private IWebElement checkPaymentButton => driver.FindElement(By.CssSelector("li.wc_payment_method.payment_method_cod"));
         private IWebElement checkPaymentButton => driver.FindElement(By.CssSelector("li.wc_payment_method.payment_method_cheque"));
         private IWebElement placeOrderButton => driver.FindElement(By.Id("place_order"));
         private IWebElement getOrderNumber => driver.FindElement(By.CssSelector("div > .woocommerce ul li strong:nth-child(1)"));
@@ -61,20 +60,12 @@ namespace Final_Project.POMPages {
             phoneField.SendKeys(value);
             return this;
         }
-        public void checkout() { //Method to fill the fourm 
+    
+        public void checkout(string name, string lastName, string house, string city, string postcode, string phone) { //Method to fill the fourm 
             Console.WriteLine("\nEntering user address  ");
-            string name = Environment.GetEnvironmentVariable("firstName"); //Grabing info from local run setting
-            string lastName = Environment.GetEnvironmentVariable("surname");
-            string house = Environment.GetEnvironmentVariable("houseStreet");
-            string city = Environment.GetEnvironmentVariable("city");
-            string postcode = Environment.GetEnvironmentVariable("postcode");
-            string phone = Environment.GetEnvironmentVariable("phone");
-
-            HelpersInstance wait = new HelpersInstance(driver);
-            Actions act = new Actions(driver);
-            IAction scroll = act.ScrollByAmount(0, 500).Build(); //Action class to scroll down
-            scroll.Perform();
             
+            HelpersInstance wait = new HelpersInstance(driver);
+            wait.ScrollPage(driver, 800); //Scrolls to bottom of the cart page 
             wait.WaitForElm(10, By.LinkText("Proceed to checkout")); //Wait until you see the button
             checkoutButton.Click();
 

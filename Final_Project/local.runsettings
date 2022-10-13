@@ -5,14 +5,7 @@
 			<!--List of secret env vars and their values-->
 			<username>test@mail.com</username>
 			<password>HelloPassword123;</password>
-			<coupon>edgewords</coupon>
 			<BROWSER>chrome</BROWSER>
-			<firstName>AJ</firstName>
-			<surname>Lee</surname>
-			<houseStreet>19 Dust Road </houseStreet>
-			<city>Fleet</city>
-			<postcode>PA21 2BE</postcode>
-			<phone>077718291</phone>
 		</EnvironmentVariables>
 	</RunConfiguration>
 </RunSettings>

@@ -10,7 +10,7 @@ namespace Final_Project.POMPages {
 
         private IWebDriver driver;
 
-        public ShopPagePOM(IWebDriver driver) { 
+        public ShopPagePOM(IWebDriver driver) {
             this.driver = driver; // the constructor
         }
 
@@ -24,5 +24,21 @@ namespace Final_Project.POMPages {
         public void getCap() { //Method to click on the Cap
             cap.Click();
         }
+
+        public void getItem(string name) {
+            name = name.ToLower(); //Swith case for each possible product
+            switch (name) {
+                case "cap":
+                    getCap();
+                    break;
+                case "sunglasses":
+                    getSunglasses();
+                    break;
+                default:
+                    getSunglasses();
+                    break;
+            }
+        }
+
     }
 }
