@@ -28,7 +28,7 @@ namespace Final_Project.POMPages {
         public IWebElement removeProduct => driver.FindElement(By.CssSelector("tr > td a")); // Removes the product
 
         public void applyCoupon(string coupon) { 
-            couponCode.SendKeys(coupon); //Sends the keys from variables  
+            couponCode.SendKeys(coupon); //Sends the keys from string parameter    
             Console.WriteLine("\nApplying Coupon " + coupon);
             applyButton.Click();
         }
