@@ -39,7 +39,7 @@ namespace Final_Project.POMPages {
             return decimal.Parse(value); // Converts string to a double 
         }
 
-        public void removeItem() { // Removes the item and coupon
+        public void removeItem() { // Removes the item and coupon if the percent or price is wrong
             HelpersInstance wait = new HelpersInstance(driver); //Create a helper class
 
             wait.ScrollPage(driver, 200);
