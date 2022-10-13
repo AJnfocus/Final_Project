@@ -81,6 +81,8 @@ namespace Final_Project.StepDefinitions {
                 decimal actualPercent = (discountFromSite / subTotalFromSite) * 100;
                 Console.WriteLine("Expected: " + p0 + "% But was: " + actualPercent + '%');
                 cartPagePOM.removeItem();
+                navBarPOM.accountButton();
+                myAccountPOM.logout();
                 throw;
             }
 
@@ -96,6 +98,8 @@ namespace Final_Project.StepDefinitions {
                 decimal expectedCost = shippingCostFromSite + salesPrice;
                 Console.WriteLine("Expected: £" + expectedCost + " But was: £" + totalCostFromSite);
                 cartPagePOM.removeItem();
+                navBarPOM.accountButton();
+                myAccountPOM.logout();
                 throw;
             }
         }
