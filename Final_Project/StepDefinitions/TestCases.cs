@@ -23,18 +23,13 @@ namespace Final_Project.StepDefinitions {
         }
 
         [Given(@"I provide my login details")]
-        public void GivenIProvideMyLoginDetails(Table table) {
-            string username;
-            string password;
+        public void GivenIProvideMyLoginDetails() {
             LoginPagePOM loginPagePOM = new LoginPagePOM(driver);
-
-            foreach (TableRow row in table.Rows) {
-                username = row["Username"].ToString(); //Grabs the username from the inline table
-                bool didWeLogin = loginPagePOM.LoginWithValidCredentials(username); //Passes the username to the login method
-                Assert.That(didWeLogin, Is.True, "We logged in");
-            }
             HelpersInstance help = new HelpersInstance(driver);
             NavBarPOM navBarPOM = new NavBarPOM(driver);
+
+            bool didWeLogin = loginPagePOM.LoginWithValidCredentials(); //Passes the username to the login method
+            Assert.That(didWeLogin, Is.True, "We logged in");
             help.WaitForElm(10, By.ClassName("woocommerce-store-notice")); //Dismiss the banner 
             navBarPOM.clickBanner();
         }
@@ -58,7 +53,7 @@ namespace Final_Project.StepDefinitions {
         }
 
         [Then(@"it should apply a discount of ""(.*)""% off from the subtotal")]
-        public void ThenItShouldApplyADiscountOfOffFromTheSubtotal(string p0) {
+        public void ThenItShouldApplyADiscountOfOffFromTheSubtotal(string percent) {
             CartPagePOM cartPagePOM = new CartPagePOM(driver);
             MyAccountPOM myAccountPOM = new MyAccountPOM(driver);
             NavBarPOM navBarPOM = new NavBarPOM(driver);
@@ -69,20 +64,17 @@ namespace Final_Project.StepDefinitions {
             decimal shippingCostFromSite = cartPagePOM.obtainShippingCost();
             decimal totalCostFromSite = cartPagePOM.obtainTotalCost();
 
-            decimal discountValue = decimal.Parse(p0); // Can set the percentage from the BDD
+            decimal discountValue = decimal.Parse(percent); // Can set the percentage from the BDD
             discountValue /= 100;
             decimal totalDiscount = subTotalFromSite * discountValue;
             decimal salesPrice = subTotalFromSite - totalDiscount;
-            Console.WriteLine("Sales price from "  + p0 + "% £" + salesPrice);
+            Console.WriteLine("Sales price from "  + percent + "% £" + salesPrice);
             try {
                 Assert.That(totalDiscount == discountFromSite, Is.True, "The right coupon percentage Was not found");
             }
             catch (Exception) {
                 decimal actualPercent = (discountFromSite / subTotalFromSite) * 100;
-                Console.WriteLine("Expected: " + p0 + "% But was: " + actualPercent + '%');
-                cartPagePOM.removeItem();
-                navBarPOM.accountButton();
-                myAccountPOM.logout();
+                Console.WriteLine("Expected: " + percent + "% But was: " + actualPercent + '%');
                 throw;
             }
 
@@ -97,9 +89,6 @@ namespace Final_Project.StepDefinitions {
             catch (Exception) {
                 decimal expectedCost = shippingCostFromSite + salesPrice;
                 Console.WriteLine("Expected: £" + expectedCost + " But was: £" + totalCostFromSite);
-                cartPagePOM.removeItem();
-                navBarPOM.accountButton();
-                myAccountPOM.logout();
                 throw;
             }
         }

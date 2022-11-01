@@ -99,7 +99,7 @@ namespace Final_Project.Utility {
             NavBarPOM navBarPOM = new NavBarPOM(driver);
             MyAccountPOM myAccountPOM = new MyAccountPOM(driver);
 
-            string count = navBarPOM.emptyCart.Text;
+            string count = navBarPOM.getCartValue();
             if(count != "£0.00") {
                 Console.WriteLine("Item still in basket");
                 help.removeItems(driver);

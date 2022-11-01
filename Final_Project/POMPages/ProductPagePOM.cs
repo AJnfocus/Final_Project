@@ -14,12 +14,12 @@ namespace Final_Project.POMPages {
             this.driver = driver; //The constructor 
         }
 
-        private IWebElement currentPageAddToCart => driver.FindElement(By.ClassName("single_add_to_cart_button")); //Finds the "Add to Cart" button
-        private IWebElement viewCart => driver.FindElement(By.ClassName("cart-contents")); // Finds the Cart
+        private IWebElement _currentPageAddToCart => driver.FindElement(By.ClassName("single_add_to_cart_button")); //Finds the "Add to Cart" button
+        private IWebElement _viewCart => driver.FindElement(By.ClassName("cart-contents")); // Finds the Cart
 
         public void addToCart() {
-            currentPageAddToCart.Click(); //Clicks on the "Add to Cart"
-            viewCart.Click(); // Clicks on the cart 
+            _currentPageAddToCart.Click(); //Clicks on the "Add to Cart"
+            _viewCart.Click(); // Clicks on the cart 
         }
 
     }

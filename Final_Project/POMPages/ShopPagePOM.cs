@@ -14,15 +14,15 @@ namespace Final_Project.POMPages {
             this.driver = driver; // the constructor
         }
 
-        private IWebElement sunglass => driver.FindElement(By.CssSelector("#main > ul > li:nth-child(10)")); // Finds the sunglasses
-        private IWebElement cap => driver.FindElement(By.CssSelector("#main > ul > li:nth-child(3)")); //Finds the Cap Product
+        private IWebElement _sunglass => driver.FindElement(By.CssSelector("#main > ul > li:nth-child(10)")); // Finds the sunglasses
+        private IWebElement _cap => driver.FindElement(By.CssSelector("#main > ul > li:nth-child(3)")); //Finds the Cap Product
 
         public void getSunglasses() { //Method to click on the sunglasses 
-            sunglass.Click();
+            _sunglass.Click();
         }
 
         public void getCap() { //Method to click on the Cap
-            cap.Click();
+            _cap.Click();
         }
 
         public void getItem(string name) {

@@ -15,31 +15,32 @@ namespace Final_Project.POMPages {
         public LoginPagePOM(IWebDriver driver) { 
             this.driver = driver; // Constructor 
         }
-        public IWebElement loginField => driver.FindElement(By.Id("username")); //Finds the login   
-        public IWebElement passwordField => driver.FindElement(By.Id("password"));//Finds the password
-        public IWebElement submitButton => driver.FindElement(By.Name("login"));// Finds the sumbit button
-        private IWebElement errorEle => driver.FindElement(By.ClassName("woocommerce-error"));
+        private IWebElement _loginField => driver.FindElement(By.Id("username")); //Finds the login   
+        private IWebElement _passwordField => driver.FindElement(By.Id("password"));//Finds the password
+        private IWebElement _submitButton => driver.FindElement(By.Name("login"));// Finds the sumbit button
+        private IWebElement _errorEle => driver.FindElement(By.ClassName("woocommerce-error"));
 
 
         public LoginPagePOM setUsername(string username) {//Method to set the username 
-            loginField.Clear();
-            loginField.SendKeys(username);
+            _loginField.Clear();
+            _loginField.SendKeys(username);
             return this;
         }
 
         public LoginPagePOM setPassword(string password) { //Method to set the password 
-            passwordField.Clear();
-            passwordField.SendKeys(password);
+            _passwordField.Clear();
+            _passwordField.SendKeys(password);
             return this;
         }
 
         public void goSubmit() { //Method hit the sumbit
-            submitButton.Click();
+            _submitButton.Click();
         }
 
         //Helper method
-        public Boolean LoginWithValidCredentials(string username) { //Calls both of method above and have try and catch
+        public Boolean LoginWithValidCredentials() { //Calls both of method above and have try and catch
             HelpersInstance wait = new HelpersInstance(driver);
+            string username = Environment.GetEnvironmentVariable("username");
             string password = Environment.GetEnvironmentVariable("password"); //Gets the password from local file
             setUsername(username);
             setPassword(password);

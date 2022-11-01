@@ -5,9 +5,6 @@ To be able to add an item to your basket and apply a coupon to checkout at the e
 Background:
 	Given When I am in the login page
 	And I provide my login details
-		| Username      |
-		| test@mail.com |
-		#password 
 
 @functional
 Scenario: Add an item to the basket and apply a coupon

@@ -41,14 +41,11 @@ namespace Final_Project.Utility {
             Console.WriteLine("\nRemoving product and coupon");
             ScrollPage(driver, 200);
 
-            WaitForElm(10, By.CssSelector("tr.cart-discount.coupon-edgewords > td > a"));
-            Thread.Sleep(1000);
-            cartPagePOM.removeCoupon.Click(); //Removes the coupon
+            cartPagePOM.clickRemoveCoupon();
 
-            WaitForElm(10, By.CssSelector("tr > td a")); //Wait for the elem to be ready
             takeScreenShot(driver, "RemoveItem");
             Thread.Sleep(1000);
-            cartPagePOM.removeProduct.Click();//Removes the product
+            cartPagePOM.clickRemoveProduct();
         }
     }
 }

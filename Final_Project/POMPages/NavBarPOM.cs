@@ -13,25 +13,29 @@ namespace Final_Project.POMPages {
             this.driver = driver; // the constructor
         }
 
-        private IWebElement shopNavButton => driver.FindElement(By.LinkText("Shop"));
-        private IWebElement myAccountButton => driver.FindElement(By.LinkText("My account"));
-        private IWebElement viewCart => driver.FindElement(By.ClassName("cart-contents")); // Finds the Cart
-        public IWebElement emptyCart => driver.FindElement(By.CssSelector("ul > li > a > span"));
-        private IWebElement dismissBanner => driver.FindElement(By.LinkText("Dismiss"));
+        private IWebElement _shopNavButton => driver.FindElement(By.LinkText("Shop"));
+        private IWebElement _myAccountButton => driver.FindElement(By.LinkText("My account"));
+        private IWebElement _viewCart => driver.FindElement(By.ClassName("cart-contents")); // Finds the Cart
+        private IWebElement _emptyCart => driver.FindElement(By.CssSelector("ul > li > a > span"));
+        private IWebElement _dismissBanner => driver.FindElement(By.LinkText("Dismiss"));
 
         public void accountButton() {
             HelpersInstance help = new HelpersInstance(driver);
             help.ScrollPage(driver, -800);
-            myAccountButton.Click(); //Clicks on the my account button
+            _myAccountButton.Click(); //Clicks on the my account button
         }
         public void shopButton() {
-            shopNavButton.Click(); //Clicks on the shop button the nav bar
+            _shopNavButton.Click(); //Clicks on the shop button the nav bar
         }
         public void cartButton() {
-            viewCart.Click();
+            _viewCart.Click();
         }
         public void clickBanner() {
-            dismissBanner.Click();
+            _dismissBanner.Click();
+        }
+
+        public string getCartValue() {
+            return _emptyCart.Text;
         }
     }
 }

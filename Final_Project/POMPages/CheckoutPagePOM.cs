@@ -18,46 +18,46 @@ namespace Final_Project.POMPages {
             this.driver = driver;
         }
 
-        private IWebElement checkoutButton => driver.FindElement(By.LinkText("Proceed to checkout"));
-        private IWebElement nameField => driver.FindElement(By.Id("billing_first_name"));
-        private IWebElement surnameField => driver.FindElement(By.Id("billing_last_name"));
-        private IWebElement houseStreet => driver.FindElement(By.Id("billing_address_1"));
-        private IWebElement cityField => driver.FindElement(By.Id("billing_city"));
-        private IWebElement postCodeField => driver.FindElement(By.Id("billing_postcode"));
-        private IWebElement phoneField => driver.FindElement(By.Id("billing_phone"));
-        private IWebElement checkPaymentButton => driver.FindElement(By.CssSelector("li.wc_payment_method.payment_method_cheque"));
-        private IWebElement placeOrderButton => driver.FindElement(By.Id("place_order"));
-        private IWebElement getOrderNumber => driver.FindElement(By.CssSelector("div > .woocommerce ul li strong:nth-child(1)"));
-        private IWebElement getDate => driver.FindElement(By.CssSelector("div > .woocommerce ul li:nth-child(2) strong"));
+        private IWebElement _checkoutButton => driver.FindElement(By.LinkText("Proceed to checkout"));
+        private IWebElement _nameField => driver.FindElement(By.Id("billing_first_name"));
+        private IWebElement _surnameField => driver.FindElement(By.Id("billing_last_name"));
+        private IWebElement _houseStreet => driver.FindElement(By.Id("billing_address_1"));
+        private IWebElement _cityField => driver.FindElement(By.Id("billing_city"));
+        private IWebElement _postCodeField => driver.FindElement(By.Id("billing_postcode"));
+        private IWebElement _phoneField => driver.FindElement(By.Id("billing_phone"));
+        private IWebElement _checkPaymentButton => driver.FindElement(By.CssSelector("li.wc_payment_method.payment_method_cheque"));
+        private IWebElement _placeOrderButton => driver.FindElement(By.Id("place_order"));
+        private IWebElement _getOrderNumber => driver.FindElement(By.CssSelector("div > .woocommerce ul li strong:nth-child(1)"));
+        private IWebElement _getDate => driver.FindElement(By.CssSelector("div > .woocommerce ul li:nth-child(2) strong"));
 
         public CheckoutPagePOM setFirstName(string value) { //Makes a set method for each field 
-            nameField.Clear();
-            nameField.SendKeys(value);
+            _nameField.Clear();
+            _nameField.SendKeys(value);
             return this;
         }
         public CheckoutPagePOM setSurnameField(string value) {
-            surnameField.Clear();
-            surnameField.SendKeys(value);
+            _surnameField.Clear();
+            _surnameField.SendKeys(value);
             return this;
         }
         public CheckoutPagePOM setHouseStreet(string value) {
-            houseStreet.Clear();
-            houseStreet.SendKeys(value);
+            _houseStreet.Clear();
+            _houseStreet.SendKeys(value);
             return this;
         }
         public CheckoutPagePOM setCity(string value) {
-            cityField.Clear();
-            cityField.SendKeys(value);
+            _cityField.Clear();
+            _cityField.SendKeys(value);
             return this;
         }
         public CheckoutPagePOM setPostCode(string value) {
-            postCodeField.Clear();
-            postCodeField.SendKeys(value);
+            _postCodeField.Clear();
+            _postCodeField.SendKeys(value);
             return this;
         }
         public CheckoutPagePOM setPhone(string value) {
-            phoneField.Clear();
-            phoneField.SendKeys(value);
+            _phoneField.Clear();
+            _phoneField.SendKeys(value);
             return this;
         }
     
@@ -67,7 +67,7 @@ namespace Final_Project.POMPages {
             HelpersInstance wait = new HelpersInstance(driver);
             wait.ScrollPage(driver, 800); //Scrolls to bottom of the cart page 
             wait.WaitForElm(10, By.LinkText("Proceed to checkout")); //Wait until you see the button
-            checkoutButton.Click();
+            _checkoutButton.Click();
 
             wait.WaitForElm(5, By.Id("billing_first_name"));
             setFirstName(name); //Calls the method above and pass through the runsetting variables 
@@ -78,17 +78,17 @@ namespace Final_Project.POMPages {
             setPhone(phone);
 
             Thread.Sleep(1000);
-            checkPaymentButton.Click();
+            _checkPaymentButton.Click();
             wait.WaitForElm(5, By.Id("place_order"));
             //driver.Quit();
-            placeOrderButton.Click();
+            _placeOrderButton.Click();
         }
 
         public int checkOrderNumber() { //Grabs the order number from confirmation page
             HelpersInstance wait = new HelpersInstance(driver);
             wait.WaitForElm(5, By.CssSelector("div > .woocommerce ul li strong:nth-child(1)"));
-            orderNumber = int.Parse(getOrderNumber.Text); //Converts the text to int 
-            date = getDate.Text;
+            orderNumber = int.Parse(_getOrderNumber.Text); //Converts the text to int 
+            date = _getDate.Text;
             Console.WriteLine(orderNumber + " " + date); //Prints out to console 
             wait.takeScreenShot(driver, "Order Number 1");
             return orderNumber; // Returns the order number
